@@ -22,14 +22,14 @@ public class DireccionOrigenController {
 	@Autowired(required = true)
 	private IDireccionOrigenService direccionService;
 	
-	@RequestMapping(value = "/origenes")
+	@RequestMapping(value = "/origen")
 	public String origen(Map<String, Object> model) {
 		DireccionOrigen origen = new DireccionOrigen();
 		model.put("origen", origen);
 		return "origen";
 	}
 	
-	@RequestMapping(value = "/origenes", method = RequestMethod.POST)
+	@RequestMapping(value = "/origen", method = RequestMethod.POST)
 	public String verificar(@Validated DireccionOrigen origen, BindingResult result, Model model, SessionStatus status) {
 		if (result.hasErrors()) {
 			return "origen";

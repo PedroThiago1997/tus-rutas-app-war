@@ -4,18 +4,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tusrutas.app.models.dao.IDireccionOrigenDao;
 import com.tusrutas.app.models.entity.DireccionOrigen;
 
 @Service
 public class DireccionOrigenServiceImpl implements IDireccionOrigenService {
 
-	@Autowired
-	private IDireccionOrigenDao direccionDao;
-	
 	@PersistenceContext
 	private EntityManager em;
 	

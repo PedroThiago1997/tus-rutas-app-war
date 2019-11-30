@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -25,7 +24,14 @@ public class UsuarioController {
 
 	@RequestMapping(value = "/index")
 	public void index() {
-
+	}
+	
+	@RequestMapping(value = "/main")
+	public void main() {
+	}
+	
+	@RequestMapping(value = "/principal")
+	public void principal() {
 	}
 
 	@RequestMapping(value = "/login")
@@ -49,19 +55,12 @@ public class UsuarioController {
 				return "redirect:/login";
 			} else {
 				System.out.println("Bienvenido: " + usuario);
-				return "redirect:/index";
+				return "redirect:/principal";
 			}
 		} catch (Exception e) {
 			return "redirect:/login";
 		}
 		
-	}
-
-	@RequestMapping(value = "/listar", method = RequestMethod.GET)
-	public String listar(Model model) {
-		model.addAttribute("titulo", "Listado de Usuarios");
-		model.addAttribute("clientes", usuarioService.findAll());
-		return "listar";
 	}
 
 	@RequestMapping(value = "/registro")
@@ -73,20 +72,6 @@ public class UsuarioController {
 		return "registro";
 	}
 
-	@RequestMapping(value = "/registro/{id}")
-	public String editar(@PathVariable(value = "id") Long id, Map<String, Object> model) {
-
-		Usuario usuario = null;
-
-		if (id > 0) {
-			usuario = usuarioService.findOne(id);
-		} else {
-			return "redirect:/listar";
-		}
-		model.put("cliente", usuario);
-		model.put("titulo", "Editar Cliente");
-		return "index";
-	}
 
 	@RequestMapping(value = "/registro", method = RequestMethod.POST)
 	public String guardar(@Validated Usuario usuario, BindingResult result, Model model, SessionStatus status) {
@@ -97,15 +82,6 @@ public class UsuarioController {
 
 		usuarioService.save(usuario);
 		status.setComplete();
-		return "redirect:index";
-	}
-
-	@RequestMapping(value = "/eliminar/{id}")
-	public String eliminar(@PathVariable(value = "id") Long id) {
-
-		if (id > 0) {
-			usuarioService.delete(id);
-		}
-		return "redirect:/listar";
+		return "redirect:main";
 	}
 }
