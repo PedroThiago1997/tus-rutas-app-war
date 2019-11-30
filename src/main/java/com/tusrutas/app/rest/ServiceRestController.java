@@ -38,29 +38,37 @@ public class ServiceRestController {
 		JsonNode node = mapper.readTree(jsonString);
 		String referencia = node.get("referencia").asText();
 		int opcion = node.get("opcion").asInt();
-
 		if (opcion == 1) {
 			origen = new DireccionOrigen();
 			origen = direccionService.obtenerOrigen(referencia);
 			Map<String, String> response = new HashMap<>();
-			response.put("direccion", origen.getDireccion());
-			response.put("latitud", origen.getLatitud());
-			response.put("longitud", origen.getLongitud());
-			return ResponseEntity.accepted().body(response);
-			
-			
-			
+			if(origen == null) {
+				response.put("respuesta", "Origen fuera de alcance");
+			}else {
+				response.put("direccion", origen.getDireccion());
+				response.put("latitud", origen.getLatitud());
+				response.put("longitud", origen.getLongitud());
+			}
+			return ResponseEntity.accepted().body(response);	
 		}
 		if (opcion == 2) {
 			destino = new DireccionDestino();
 			destino = direccionDestinoService.obtenerDestino(referencia);
 			Map<String, String> response = new HashMap<>();
-			response.put("direccion", destino.getDireccion());
-			response.put("latitud", destino.getLatitud());
-			response.put("longitud", destino.getLongitud());
+			if(destino == null) {
+				response.put("respuesta", "Destino fuera de alcance");
+			}else {
+				response.put("direccion", destino.getDireccion());
+				response.put("latitud", destino.getLatitud());
+				response.put("longitud", destino.getLongitud());
+			}
 			return ResponseEntity.accepted().body(response);
-		} else
-			return null;
+		} else {
+			Map<String, String> response = new HashMap<>();
+			response.put("error", "Opcion Incorrecta");
+			return ResponseEntity.accepted().body(response);
+		}
+			
 
 	}
 
