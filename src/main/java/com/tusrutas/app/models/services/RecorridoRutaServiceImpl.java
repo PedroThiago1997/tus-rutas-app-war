@@ -28,24 +28,21 @@ public class RecorridoRutaServiceImpl implements IRecorridoRutaService {
 			String query1 = "Select u from RecorridoRuta u where u.referencia LIKE :referenciaorigen";
 			String query2 = "Select u from RecorridoRuta u where u.referencia LIKE :referenciadestino";
 
-			origenes = em.createQuery(query1).setParameter("referenciaorigen", "%" + referenciaorigen + "%").getResultList();
-			destinos = em.createQuery(query2).setParameter("referenciadestino", "%" + referenciadestino + "%").getResultList();
-			
+			origenes = em.createQuery(query1).setParameter("referenciaorigen", "%" + referenciaorigen + "%")
+					.getResultList();
+			destinos = em.createQuery(query2).setParameter("referenciadestino", "%" + referenciadestino + "%")
+					.getResultList();
+
 			for (RecorridoRuta recorridoRuta : origenes) {
 				for (RecorridoRuta recorridoRuta2 : destinos) {
-					if (recorridoRuta.getRuta().getIdruta()==recorridoRuta2.getRuta().getIdruta()) {
+					if (recorridoRuta.getRuta().getIdruta() == recorridoRuta2.getRuta().getIdruta()) {
 						recorridos.add(recorridoRuta);
 					}
 				}
-			}			
-
+			}
 			return recorridos;
-
 		} catch (Exception e) {
-
 			return null;
 		}
-
 	}
-
 }
