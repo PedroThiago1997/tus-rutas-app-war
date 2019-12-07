@@ -30,8 +30,8 @@ public class UsuarioController {
 	public void main() {
 	}
 	
-	@RequestMapping(value = "/principal")
-	public void principal() {
+	@RequestMapping(value = "dashboard/index")
+	public void dashboard() {
 	}
 
 	@RequestMapping(value = "/login")
@@ -55,7 +55,7 @@ public class UsuarioController {
 				return "redirect:/login";
 			} else {
 				System.out.println("Bienvenido: " + usuario);
-				return "redirect:/principal";
+				return "redirect:/dashboard/index";
 			}
 		} catch (Exception e) {
 			return "redirect:/login";
@@ -79,9 +79,12 @@ public class UsuarioController {
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "form";
 		}
-
-		usuarioService.save(usuario);
-		status.setComplete();
-		return "redirect:main";
+		if(usuario.getCorreo() == "" || usuario.getNombre() == "" || usuario.getPassword() == "") {
+			return "redirect:/registro";
+		}else {
+			usuarioService.save(usuario);
+			status.setComplete();
+			return "redirect:/dashboard/index";
+		}		
 	}
 }

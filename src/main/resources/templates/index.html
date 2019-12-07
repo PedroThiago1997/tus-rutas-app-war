@@ -3,24 +3,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<meta name="description" content="" />
-	<meta name="author" content="" />
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
 
-	<!-- Custom fonts for this theme -->
-	<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-		type="text/css" />
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-		rel="stylesheet" type="text/css" />
-	<link
-		href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-		rel="stylesheet" type="text/css" />
+<!-- Custom fonts for this theme -->
+<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css" />
 
-	<!-- Theme CSS -->
-	<link href="css/freelancer.min.css" rel="stylesheet" />
-	<title>Tus Rutas - Trujillo</title>
+<!-- Theme CSS -->
+<link href="css/freelancer.min.css" rel="stylesheet" />
+<title>Tus Rutas - Trujillo</title>
 
 </head>
 <body id="page-top">
@@ -42,13 +42,10 @@
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item mx-0 mx-lg-1"><a
 					class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-					th:href="@{/login}">Iniciar Sesión</a></li>
+					href="#portfolio">¿Que es?</a></li>
 				<li class="nav-item mx-0 mx-lg-1"><a
 					class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-					th:href="@{/registro}">Registrate</a></li>
-				<li class="nav-item mx-0 mx-lg-1"><a
-					class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-					href="#about">Acerca de</a></li>
+					href="#about">¿Cómo Nació?</a></li>
 			</ul>
 		</div>
 	</div>
@@ -170,7 +167,7 @@
 		<div class="row" id="about">
 			<div class="col-lg-4 ml-auto">
 				<p class="lead">Tus Rutas es una aplicación gratuita que nació
-					de la idea de tres estudiantes de informática, que en vista de una
+					de la idea de cuatro estudiantes de informática, que en vista de una
 					problemática social, buscaron una solución tecnológica para poder
 					desarrollarla hasta el día de hoy.</p>
 
@@ -377,6 +374,29 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		(function(b, c) {
+			var e = document.createElement('link');
+					e.rel = 'stylesheet',
+					e.type = 'text/css',
+					e.href = 'https://chatboxlive.blahbox.net/static/css/main.css',
+					document.getElementsByTagName('head')[0].appendChild(e);
+			var f = document.createElement('script');
+			f.onload = function() {
+				var g;
+				if (c)
+					g = 'previewInit';
+				else {
+					var h = document.createElement('div');
+					g = 'cbinit', h.id = 'cbinit', document.body.append(h)
+				}
+				console.log(document.querySelector('#' + g)), chatbox.initChat(
+						document.querySelector('#' + g), b, c)
+			}, f.src = 'https://chatboxlive.blahbox.net/static/js/chat-lib.js',
+					document.getElementsByTagName('head')[0].appendChild(f)
+		})('dea64f29d7d3e384cbe1ee34c924273d', 0);
+	</script>
 
 
 	<!-- Bootstrap core JavaScript -->

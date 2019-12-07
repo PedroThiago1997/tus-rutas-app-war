@@ -18,15 +18,17 @@ public class Ruta implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idruta;
 
-	@Column(name="EMPRESA_RUTA")
-	private String empresaRuta;
-
 	@Column(name="NOMBRE_RUTA")
 	private String nombreRuta;
 
 	//bi-directional many-to-one association to RecorridoRuta
 	@OneToMany(mappedBy="ruta")
 	private List<RecorridoRuta> recorridoRutas;
+
+	//bi-directional many-to-one association to Empresa
+	@ManyToOne
+	@JoinColumn(name="IDEMPRESA")
+	private Empresa empresa;
 
 	public Ruta() {
 	}
@@ -37,14 +39,6 @@ public class Ruta implements Serializable {
 
 	public void setIdruta(int idruta) {
 		this.idruta = idruta;
-	}
-
-	public String getEmpresaRuta() {
-		return this.empresaRuta;
-	}
-
-	public void setEmpresaRuta(String empresaRuta) {
-		this.empresaRuta = empresaRuta;
 	}
 
 	public String getNombreRuta() {
@@ -75,6 +69,14 @@ public class Ruta implements Serializable {
 		recorridoRuta.setRuta(null);
 
 		return recorridoRuta;
+	}
+
+	public Empresa getEmpresa() {
+		return this.empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 
 }

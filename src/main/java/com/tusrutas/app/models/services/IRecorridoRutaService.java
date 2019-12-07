@@ -1,10 +1,10 @@
 package com.tusrutas.app.models.services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.tusrutas.app.models.entity.RecorridoRuta;
 
 public interface IRecorridoRutaService {
 
-	public ArrayList<RecorridoRuta> recorridoRuta(String latitud, String Longitud);
+	public List<RecorridoRuta> recorridoRuta(String referenciaorigen, String referenciadestino);
 }

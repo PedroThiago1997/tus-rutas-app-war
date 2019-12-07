@@ -16,26 +16,29 @@ public class RecorridoRuta implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int idrecorridoruta;
+	@Column(name="ID_RECORRIDO")
+	private int idRecorrido;
 
 	private String latitud;
 
 	private String longitud;
 
+	private String referencia;
+
 	//bi-directional many-to-one association to Ruta
 	@ManyToOne
-	@JoinColumn(name="IDRUTA")
+	@JoinColumn(name="ID_RUTA")
 	private Ruta ruta;
 
 	public RecorridoRuta() {
 	}
 
-	public int getIdrecorridoruta() {
-		return this.idrecorridoruta;
+	public int getIdRecorrido() {
+		return this.idRecorrido;
 	}
 
-	public void setIdrecorridoruta(int idrecorridoruta) {
-		this.idrecorridoruta = idrecorridoruta;
+	public void setIdRecorrido(int idRecorrido) {
+		this.idRecorrido = idRecorrido;
 	}
 
 	public String getLatitud() {
@@ -52,6 +55,14 @@ public class RecorridoRuta implements Serializable {
 
 	public void setLongitud(String longitud) {
 		this.longitud = longitud;
+	}
+
+	public String getReferencia() {
+		return this.referencia;
+	}
+
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
 	}
 
 	public Ruta getRuta() {
