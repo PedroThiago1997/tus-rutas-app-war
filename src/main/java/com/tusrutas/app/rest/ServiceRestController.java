@@ -18,12 +18,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tusrutas.app.models.entity.DireccionDestino;
 import com.tusrutas.app.models.entity.DireccionOrigen;
+import com.tusrutas.app.models.entity.PreguntasFrecuente;
 import com.tusrutas.app.models.entity.RecorridoRuta;
 import com.tusrutas.app.models.entity.Ruta;
 import com.tusrutas.app.models.entityRest.RecorridoRest;
 import com.tusrutas.app.models.entityRest.RutaRest;
 import com.tusrutas.app.models.services.IDireccionDestinoService;
 import com.tusrutas.app.models.services.IDireccionOrigenService;
+import com.tusrutas.app.models.services.IPreguntasFrecuentesService;
 import com.tusrutas.app.models.services.IRecorridoRutaService;
 import com.tusrutas.app.models.services.IRutaService;
 
@@ -41,9 +43,13 @@ public class ServiceRestController {
 
 	@Autowired
 	private IRutaService rutaService;
+	
+	@Autowired
+	private IPreguntasFrecuentesService frecuentesService;
 
 	DireccionOrigen origen;
 	DireccionDestino destino;
+	PreguntasFrecuente respuesta;
 	List<RecorridoRuta> recorridos;
 	List<Ruta> rutas;
 
@@ -111,10 +117,24 @@ public class ServiceRestController {
 						ru.setNombre(ruta.getNombreRuta());
 						rut.add(ru);
 					}
-					response.put("Rutas", rut);
+					String respuesta = "La(s) mejor(es) ruta(s) para ti son las siguientes: ";
+					for (RutaRest rutaRest : rut) {
+						respuesta += "Empresa: "+rutaRest.getEmpresa() +" - Ruta: " +rutaRest.getNombre()+". ";
+					}
+					response.put("Rutas", respuesta);
 				}
 			} else {
-				response.put("error", "No se encontraron rutas");
+				response.put("Rutas", "Lo siento, no se encontraron rutas para tus referencias :(");
+			}
+			return ResponseEntity.accepted().body(response);
+		} if(opcion==4) {
+			respuesta = new PreguntasFrecuente();
+			respuesta = frecuentesService.obtenerRespuesta(node.get("pregunta").asText());
+			Map<String, String> response = new HashMap<>();
+			if (respuesta == null) {
+				response.put("respuesta", "No tengo la respuesta para esa pregunta.");
+			} else {
+				response.put("respuesta", respuesta.getRespuestapregunta());
 			}
 			return ResponseEntity.accepted().body(response);
 		} else {
