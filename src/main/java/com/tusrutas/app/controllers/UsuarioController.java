@@ -26,6 +26,10 @@ public class UsuarioController {
 	public void index() {
 	}
 	
+	@RequestMapping(value = "/chat")
+	public void chat() {
+	}
+	
 	@RequestMapping(value = "/main")
 	public void main() {
 	}
