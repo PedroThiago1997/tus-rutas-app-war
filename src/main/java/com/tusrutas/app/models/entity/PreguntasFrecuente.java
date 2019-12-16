@@ -22,6 +22,8 @@ public class PreguntasFrecuente implements Serializable {
 
 	private String respuestapregunta;
 
+	private String rutaimagen;
+
 	public PreguntasFrecuente() {
 	}
 
@@ -47,6 +49,14 @@ public class PreguntasFrecuente implements Serializable {
 
 	public void setRespuestapregunta(String respuestapregunta) {
 		this.respuestapregunta = respuestapregunta;
+	}
+
+	public String getRutaimagen() {
+		return this.rutaimagen;
+	}
+
+	public void setRutaimagen(String rutaimagen) {
+		this.rutaimagen = rutaimagen;
 	}
 
 }

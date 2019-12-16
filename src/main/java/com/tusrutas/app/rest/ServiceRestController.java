@@ -43,7 +43,7 @@ public class ServiceRestController {
 
 	@Autowired
 	private IRutaService rutaService;
-	
+
 	@Autowired
 	private IPreguntasFrecuentesService frecuentesService;
 
@@ -65,7 +65,7 @@ public class ServiceRestController {
 			origen = direccionService.obtenerOrigen(referencia);
 			Map<String, String> response = new HashMap<>();
 			if (origen == null) {
-				response.put("respuesta", "Origen fuera de alcance");
+				response.put("respuesta", "Lamento decirte que no tengo esa referencia de origen registrado en mis conocimientos :c");
 			} else {
 				response.put("direccion", origen.getDireccion());
 				response.put("latitud", origen.getLatitud());
@@ -78,7 +78,7 @@ public class ServiceRestController {
 			destino = direccionDestinoService.obtenerDestino(referencia);
 			Map<String, String> response = new HashMap<>();
 			if (destino == null) {
-				response.put("respuesta", "Destino fuera de alcance");
+				response.put("respuesta", "Lamento decirte que no tengo esa referencia de destino registrado en mis conocimientos :c");
 			} else {
 				response.put("direccion", destino.getDireccion());
 				response.put("latitud", destino.getLatitud());
@@ -89,6 +89,8 @@ public class ServiceRestController {
 		if (opcion == 3) {
 			Map<String, Object> response = new HashMap<>();
 			recorridos = new ArrayList<RecorridoRuta>();
+			String or = node.get("origen").asText();
+			String des = node.get("destino").asText();
 			recorridos = recorridoRutaService.recorridoRuta(node.get("origen").asText(), node.get("destino").asText());
 			List<RecorridoRest> reco = new ArrayList<RecorridoRest>();
 			RecorridoRest r;
@@ -117,17 +119,23 @@ public class ServiceRestController {
 						ru.setNombre(ruta.getNombreRuta());
 						rut.add(ru);
 					}
-					String respuesta = "La(s) mejor(es) ruta(s) para ti son las siguientes: ";
-					for (RutaRest rutaRest : rut) {
-						respuesta += "Empresa: "+rutaRest.getEmpresa() +" - Ruta: " +rutaRest.getNombre()+". ";
+					if (or.equals(des)) {
+						response.put("Rutas", "Lo siento, pero creo que estás donde quieres llegar :(");
+					} else {
+						String respuesta = "Bien! Esto tengo para ti, la(s) mejor(es) ruta(s) para ti son las siguientes: ";
+						for (RutaRest rutaRest : rut) {
+							respuesta += "Empresa: " + rutaRest.getEmpresa() + " - Ruta: " + rutaRest.getNombre()
+									+ ". ";
+						}
+						response.put("Rutas", respuesta);
 					}
-					response.put("Rutas", respuesta);
 				}
 			} else {
 				response.put("Rutas", "Lo siento, no se encontraron rutas para tus referencias :(");
 			}
 			return ResponseEntity.accepted().body(response);
-		} if(opcion==4) {
+		}
+		if (opcion == 4) {
 			respuesta = new PreguntasFrecuente();
 			respuesta = frecuentesService.obtenerRespuesta(node.get("pregunta").asText());
 			Map<String, String> response = new HashMap<>();
@@ -135,6 +143,8 @@ public class ServiceRestController {
 				response.put("respuesta", "No tengo la respuesta para esa pregunta.");
 			} else {
 				response.put("respuesta", respuesta.getRespuestapregunta());
+				response.put("rutaimg1", respuesta.getRutaimagen());
+				response.put("titulo", respuesta.getPregunta());
 			}
 			return ResponseEntity.accepted().body(response);
 		} else {
